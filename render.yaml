@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: hospital-lead
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn hospital_lead.wsgi
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: hospital_lead.settings

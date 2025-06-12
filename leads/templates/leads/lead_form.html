@@ -1,0 +1,65 @@
+{% extends 'leads/base.html' %}
+{% load i18n %}
+
+{% block title %}إضافة عميل جديد{% endblock %}
+
+{% block content %}
+<h1>إضافة عميل جديد</h1>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div style="margin-bottom: 15px;">
+        <label for="{{ form.name.id_for_label }}">الاسم:</label>
+        {{ form.name }}
+        {{ form.name.errors }}
+    </div>
+    
+    <div style="margin-bottom: 15px;">
+        <label for="{{ form.phone.id_for_label }}">رقم الهاتف:</label>
+        {{ form.phone }}
+        {{ form.phone.errors }}
+    </div>
+    
+    <div style="margin-bottom: 15px;">
+        <label for="{{ form.platform.id_for_label }}">منصة الإعلان:</label>
+        {{ form.platform }}
+        {{ form.platform.errors }}
+    </div>
+    
+    <div style="margin-bottom: 15px;">
+        <label for="{{ form.booking_status.id_for_label }}">حجز الموعد:</label>
+        {{ form.booking_status }}
+        {{ form.booking_status.errors }}
+    </div>
+    
+    <div style="margin-bottom: 15px;" id="reason-field">
+        <label for="{{ form.reason.id_for_label }}">سبب عدم الحجز:</label>
+        {{ form.reason }}
+        {{ form.reason.errors }}
+    </div>
+    
+    <div style="margin-bottom: 15px;">
+        <label for="{{ form.notes.id_for_label }}">ملاحظات:</label>
+        {{ form.notes }}
+        {{ form.notes.errors }}
+    </div>
+    
+    <button type="submit" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px;">حفظ</button>
+</form>
+
+<script>
+    // Show/hide reason field based on booking status
+    document.addEventListener('DOMContentLoaded', function() {
+        const bookingStatus = document.getElementById('{{ form.booking_status.id_for_label }}');
+        const reasonField = document.getElementById('reason-field');
+        
+        function toggleReasonField() {
+            reasonField.style.display = bookingStatus.value === 'not_booked' ? 'block' : 'none';
+        }
+        
+        bookingStatus.addEventListener('change', toggleReasonField);
+        toggleReasonField(); // Initial check
+    });
+</script>
+{% endblock %}

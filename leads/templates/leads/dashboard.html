@@ -1,0 +1,32 @@
+{% extends 'leads/base.html' %}
+{% load i18n %}
+
+{% block title %}لوحة التحكم{% endblock %}
+
+{% block content %}
+<h1>لوحة التحكم</h1>
+
+<div style="display: flex; justify-content: space-around; margin-bottom: 30px;">
+    <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; text-align: center; width: 30%;">
+        <h2>إجمالي العملاء</h2>
+        <p style="font-size: 24px; font-weight: bold;">{{ total_leads }}</p>
+    </div>
+    <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; text-align: center; width: 30%;">
+        <h2>تم الحجز</h2>
+        <p style="font-size: 24px; font-weight: bold;">{{ total_booked }}</p>
+    </div>
+    <div style="background: #fff3e0; padding: 20px; border-radius: 8px; text-align: center; width: 30%;">
+        <h2>نسبة التحويل</h2>
+        <p style="font-size: 24px; font-weight: bold;">
+            {% if total_leads > 0 %}
+                {{ total_booked|default:0|floatformat }}/{{ total_leads|floatformat }} = 
+                {% widthratio total_booked total_leads 100 %}%
+            {% else %}
+                0%
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<!-- Rest of your template remains the same -->
+{% endblock %}

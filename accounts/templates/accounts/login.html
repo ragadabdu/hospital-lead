@@ -1,0 +1,12 @@
+{% extends 'leads/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>تسجيل موظف استقبال جديد</h2>
+    <form method="post" class="rtl-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">تسجيل</button>
+    </form>
+</div>
+{% endblock %}
